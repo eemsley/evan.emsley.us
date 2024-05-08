@@ -3,7 +3,7 @@ import useScrollLocation from "../hooks/useScrollLocation";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LocalPhoneRoundedIcon from "@mui/icons-material/LocalPhoneRounded";
 import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
-import { projects } from "../data/data.js";
+import { projects, skills } from "../data/data.js";
 import { useEffect, useState } from "react";
 
 function Home() {
@@ -19,38 +19,38 @@ function Home() {
       <div
         className={`sticky ${
           scrollDirection === "down" || clicked === true ? "-top-16" : "top-0"
-        }  ${position === 0 ? "bg-slate-300" : "bg-slate-300/80"}
+        }  ${position === 0 ? "bg-slate-600" : "bg-slate-600/80"}
           h-16 transition-all duration-250 ease-in-out scroll-smooth`}
       >
-        <div className="h-full w-full flex flex-row justify-center  text-slate-800 items-center">
+        <div className="h-full w-full flex flex-row justify-center  text-slate-100 items-center">
           <div className="absolute left-4 w-1/4 flex p-4">
             <p className="text-xl px-1 rounded-lg italic">evan.emsley.us</p>
           </div>
           <div className="w-3/4 h-full justify-evenly items-center flex absolute right-0">
             <a href="#Home" onClick={() => setClicked(true)}>
-              <div class="group  text-slate-800 transition-all duration-300 ease-in-out">
-                <p class="  bg-left-bottom bg-gradient-to-r from-slate-600 to-slate-600 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
+              <div class="group  text-slate-100 transition-all duration-300 ease-in-out">
+                <p class="  bg-left-bottom bg-gradient-to-r from-slate-100 to-slate-100 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
                   Home
                 </p>
               </div>
             </a>
             <a href="#Projects" onClick={() => setClicked(true)}>
-              <div class="group  text-slate-800 transition-all duration-300 ease-in-out">
-                <p class="bg-left-bottom bg-gradient-to-r  from-slate-600  to-slate-600 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out ">
+              <div class="group  text-slate-100 transition-all duration-300 ease-in-out">
+                <p class="bg-left-bottom bg-gradient-to-r  from-slate-100  to-slate-100 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out ">
                   Projects
                 </p>
               </div>
             </a>
             <a href="#Resume" onClick={() => setClicked(true)}>
-              <div class="group  text-slate-800 transition-all duration-300 ease-in-out">
-                <p class="bg-left-bottom bg-gradient-to-r  from-slate-600  to-slate-600 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
+              <div class="group  text-slate-100 transition-all duration-300 ease-in-out">
+                <p class="bg-left-bottom bg-gradient-to-r  from-slate-100  to-slate-100 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
                   Resume
                 </p>
               </div>
             </a>
             <a href="#About" onClick={() => setClicked(true)}>
-              <div class="group  text-slate-800 transition-all duration-300 ease-in-out">
-                <p class="bg-left-bottom bg-gradient-to-r  from-slate-600  to-slate-600 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
+              <div class="group  text-slate-100 transition-all duration-300 ease-in-out">
+                <p class="bg-left-bottom bg-gradient-to-r  from-slate-100  to-slate-100 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
                   About
                 </p>
               </div>
@@ -64,7 +64,7 @@ function Home() {
           className="flex w-full flex-col justify-center items-center h-screen"
         >
           <div className="w-5/6 max-w-6xl bg-slate-100  rounded-xl mb-24 p-8 flex items-center justify-center flex-col">
-            <p className="text-5xl transition-all duration-1000 font-bold text-slate-600 pb-6">
+            <p className="text-4xl transition-all duration-1000 font-bold text-slate-600 pb-6">
               Welcome!
             </p>
             <p className="text-xl/tight text-slate-600">
@@ -77,25 +77,34 @@ function Home() {
             <div className="w-full flex flex-row items-center">
               <div className="w-5/6">
                 <p className="text-sm/normal text-slate-600 pr-12">
-                  Within these digital walls, you will encounter a confluence of
-                  my diverse interests and passions. From the mellifluous
-                  strumming of guitar strings to the intricacies of computer
-                  programming and machine learning, from the discipline of
-                  physical fitness to the boundless exploration of global
-                  destinations, and from the relentless pursuit of knowledge to
-                  the embrace of emerging technologies — each facet of my
-                  persona finds expression here. Enter this domain where the
-                  artistry of music intertwines with the precision of code,
-                  where physical vigor complements intellectual rigor, and where
-                  curiosity drives discovery. Here, the journey encompasses the
-                  synthesis of creativity and logic, resulting in a tapestry of
-                  innovation and exploration. Whether you seek to immerse
-                  yourself in the melodies that resonate from these strings,
-                  delve into the depths of programming and machine learning,
-                  draw inspiration for your fitness endeavors, or embark on a
-                  virtual odyssey through the realms of technology — rest
-                  assured, you have found a sanctuary amidst the digital
-                  landscape.
+                  I've been coding since middle school and am very passionate
+                  about software development. I've worked on projects from
+                  mobile applications to low-level operating system development,
+                  and am currently working through a machine learning project,
+                  the classic example of identifying hand-written numbers. This
+                  summer, I'm interning on the DevOps Team at Allegion in
+                  Carmel, Indiana. After graduation this December, I'm looking
+                  for a full-time software development position at an innovative
+                  company where I can explore new technologies and grow as a
+                  developer. <br />
+                  <br />I made this website with React and Tailwind CSS,
+                  deployed with Vercel. It's posted on my GitHub{" "}
+                  <a
+                    href="https://github.com/eemsley/evan.emsley.us"
+                    className="text-sky-600 underline hover:text-sky-300 transition-all duration-500 ease-in-out"
+                  >
+                    here
+                  </a>
+                  . <br />
+                  <br />
+                  I'm always looking for new projects to work on, so feel free
+                  to email me at{" "}
+                  <a
+                    className="text-sky-600 underline hover:text-sky-300 transition-all duration-500 ease-in-out"
+                    href="mailto:evan@emsley.us"
+                  >
+                    evan@emsley.us
+                  </a>
                 </p>
               </div>
               <div className="w-1/6 mr-4 mb-8">
@@ -105,6 +114,13 @@ function Home() {
                   className="rounded-full hover:scale-125 duration-1000 shadow-lg shadow-slate-600"
                 />
               </div>
+            </div>
+            <div className="w-full  flex flex-row justify-evenly max-w-5xl items-center space-x-2 mt-8 drop-shadow-2xl">
+              {skills.map((skill) => (
+                <p className="text-xs text-slate-100 p-2 bg-slate-600 rounded-full min-w-12 text-center hover:scale-110 transition-all duration-500 drop-shadow-xl">
+                  {skill}
+                </p>
+              ))}
             </div>
           </div>
         </div>
@@ -145,7 +161,7 @@ function Home() {
           <p className="text-5xl transition-all duration-1000 font-bold text-slate-600 pb-4">
             Resume
           </p>
-          <div className="w-full flex flex-row bg-red-100 flex-wrap">
+          <div className="w-full flex flex-row flex-wrap">
             <div className=" w-1/2 aspect-square bg-slate-300"></div>
             <div className=" w-1/2 aspect-square bg-slate-500"></div>
             <div className=" w-1/2 aspect-square bg-slate-400"></div>
@@ -162,7 +178,7 @@ function Home() {
             More About Me
           </p>
 
-          <div className="w-2/3 flex flex-row bg-red-100 flex-wrap">
+          <div className="w-2/3 flex flex-row flex-wrap">
             <div className=" w-1/4 aspect-square bg-slate-300"></div>
             <div className=" w-1/4 aspect-square bg-slate-500"></div>
             <div className=" w-1/4 aspect-square bg-slate-400"></div>

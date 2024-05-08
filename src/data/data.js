@@ -47,3 +47,19 @@ export const projects = [
     link: "http://github.com",
   },
 ];
+
+export const skills = [
+  "C",
+  "C++",
+  "Java",
+  "JavaScript",
+  "TypeScript",
+  "React",
+  "Node.js",
+  "HTML/CSS",
+  "Tailwind CSS",
+  "SQL",
+  "MongoDB",
+  "git",
+  "GitHub Actions",
+];
