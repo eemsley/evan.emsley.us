@@ -46,6 +46,22 @@ export const projects = [
     image: require("../assets/xinu.png"),
     link: "http://github.com",
   },
+  {
+    title: "Portfolio",
+    technologies: ["React", "Tailwind", "Vercel"],
+    description:
+      "This portfolio site! Features include a responsive design, dark mode, and a clean layout.",
+    image: require("../assets/portfolio.png"),
+    link: "http://github.com",
+  },
+  {
+    title: "Band Website",
+    technologies: ["React", "Tailwind", "Vercel"],
+    description:
+      "Website for the band Arboretum. Features include YouTube embeds, Spotify embeds, and a Shopify store integration.",
+    image: require("../assets/arboretum.png"),
+    link: "http://github.com",
+  },
 ];
 
 export const skills = [
