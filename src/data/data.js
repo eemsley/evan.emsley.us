@@ -5,7 +5,7 @@ export const projects = [
     description:
       "Fully functional shell written with C, C++, lex, and yacc. Features include command piping, command history, and wildcard expressions.",
     image: require("../assets/shell.png"),
-    link: "http://github.com",
+    link: "",
   },
   {
     title: "Sprift Shopping",
@@ -36,7 +36,7 @@ export const projects = [
     description:
       'Twitter clone which allows users to post "notes" and follow other users. Features include account creation/login, CRUD operations for notes, and note sharing to other users.',
     image: require("../assets/noter.png"),
-    link: "http://github.com",
+    link: "",
   },
   {
     title: "Xinu Process Sceduler",
