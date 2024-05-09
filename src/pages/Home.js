@@ -231,21 +231,45 @@ function Home() {
             <div className=" w-full flex flex-row flex-wrap items-center justify-center">
               {projects.map((project) => (
                 <div className=" w-1/2 min-w-72 aspect-square bg-slate-600 items-center justify-center flex flex-col p-4 border-8 border-slate-100 rounded-xl">
-                  <a href={project.link}>
-                    <p className="text-3xl font-bold text-slate-50 pb-2 text-center">
+                  <a href={project.link == null ? null : project.link}>
+                    <p className="text-2xl font-bold text-slate-50 pb-2 text-center">
                       {project.title}
                     </p>
                   </a>
-                  <p className="text-base text-slate-50 pb-4 text-center">
+                  <p className="text-xs text-slate-50 text-center mb-2">
                     {project.technologies.join(", ")}
                   </p>
+
                   <img
                     src={project.image}
                     alt="project"
-                    className="w-3/4 hover:w-full transition-all duration-1000 mb-4 border-2 shadow-lg shadow-slate-200 border-slate-200"
+                    className="w-3/4 hover:w-full transition-all duration-1000 mb-4 border-2 shadow-lg shadow-slate-800 border-slate-200"
                   />
+
                   <p className="text-sm text-slate-50 text-center">
                     {project.description}
+                    {"  "}
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-sky-300 hover:text-sky-500 transition-all duration-500 ease-in-out underline"
+                      >
+                        GitHub
+                      </a>
+                    )}
+                    {"  "}
+                    {project.link && (
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-sky-300 hover:text-sky-500 transition-all duration-500 ease-in-out underline"
+                      >
+                        Website
+                      </a>
+                    )}
                   </p>
                 </div>
               ))}
