@@ -19,6 +19,8 @@ function Home() {
 
   const [clicked, setClicked] = useState(false);
 
+  const [carouselIndex, setCarouselIndex] = useState(0);
+
   const [width, setWidth] = useState(window.innerWidth);
 
   function handleWindowSizeChange() {
@@ -40,36 +42,43 @@ function Home() {
     return (
       <div
         id={"carousel"}
-        className={`w-full h-full bg-slate-200 py-12 flex-row flex overflow-x-scroll ${
-          isMobile ? "px-8" : "px-48 no-scrollbar"
+        className={`no-scrollbar flex h-full w-full flex-row overflow-x-scroll bg-slate-200 py-12 ${
+          isMobile ? "px-8" : "px-48"
         }`}
       >
         {projects.map((project, index) => (
           <div
             id={index}
-            className="h-full shadow-xl rounded-xl shadow-slate-800 hover:scale-110 transition-all duration-500 aspect-square bg-slate-600 justify-center items-center flex flex-col cursor-pointer mx-4 p-4 space-y-2 text-slate-100"
-            onClick={async () => {
-              setTimeout(() => {
-                const child = document.getElementById(index);
-                child.scrollIntoView({
-                  behavior: "smooth",
-                  block: "nearest",
-                  inline: "center",
-                });
-              }, 0);
+            className={`${
+              index === carouselIndex
+                ? "scale-110"
+                : "scale-100 hover:bg-slate-600/90"
+            } mx-4 flex aspect-square h-full cursor-pointer flex-col items-center justify-center space-y-2 rounded-xl bg-slate-600 p-4 text-slate-100 shadow-lg shadow-slate-800 transition-all duration-500`}
+            onClick={() => {
+              const child = document.getElementById(index);
+              setCarouselIndex(index);
+              child.scrollIntoView({
+                behavior: "smooth",
+                block: "nearest",
+                inline: "center",
+              });
             }}
           >
-            <p className="text-xl">{project.title}</p>
-            <p className="text-xs">{project.technologies.join(", ")}</p>
-            <img className="w-3/4" src={project.image} alt="project" />
+            <p className={`${isMobile ? "text-base" : "text-xl"}`}>
+              {project.title}
+            </p>
+            <p className={`${isMobile ? "text-xs" : "text-sm"}`}>
+              {project.technologies.join(", ")}
+            </p>
+            <img className="h-2/5" src={project.image} alt="project" />
             <p className="text-xs">{project.description}</p>
-            <div className="w-1/2 text-sm flex-row items-center justify-evenly flex">
+            <div className="flex w-1/2 flex-row items-center justify-evenly text-sm">
               {project.github && (
                 <a
                   href={project.github}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-sky-400 hover:text-sky-600 hover:underline transition-all duration-500"
+                  className="text-sky-400 transition-all duration-500 hover:text-sky-600 hover:underline"
                 >
                   GitHub
                 </a>
@@ -79,7 +88,7 @@ function Home() {
                   href={project.link}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-sky-400 hover:text-sky-600 hover:underline transition-all duration-500"
+                  className="text-sky-400 transition-all duration-500 hover:text-sky-600 hover:underline"
                 >
                   Website
                 </a>
@@ -98,42 +107,42 @@ function Home() {
         }  ${
           position === 0 ? "bg-slate-600" : "bg-slate-600/20 hover:bg-slate-600"
         }
-      h-16 transition-all duration-250 ease-in-out scroll-smooth`}
+      duration-250 h-16 scroll-smooth transition-all ease-in-out`}
       >
-        <div className="h-full w-full flex flex-row justify-center  text-slate-100 items-center">
-          <div className="absolute left-0 w-1/4 flex p-4 items-center justify-center">
-            <p className="text-lg px-1 rounded-lg italic">evan.emsley.us</p>
+        <div className="flex h-full w-full flex-row items-center  justify-center text-slate-100">
+          <div className="absolute left-0 flex w-1/4 items-center justify-center p-4">
+            <p className="rounded-lg px-1 text-lg italic">evan.emsley.us</p>
           </div>
 
           <div
-            className={`w-3/4 h-full justify-evenly items-center flex ${
+            className={`flex h-full w-3/4 items-center justify-evenly ${
               isMobile ? "relative" : "absolute right-0"
             } `}
           >
             <a href="#Home" onClick={() => setClicked(true)}>
               <div class="group  text-slate-100 transition-all duration-300 ease-in-out">
-                <p class="  bg-left-bottom bg-gradient-to-r from-lime-600 to-lime-400 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out hover:text-lime-400">
+                <p class="  bg-gradient-to-r from-lime-600 to-lime-400 bg-[length:0%_2px] bg-left-bottom bg-no-repeat transition-all duration-500 ease-out hover:text-lime-400 group-hover:bg-[length:100%_2px]">
                   Home
                 </p>
               </div>
             </a>
             <a href="#Projects" onClick={() => setClicked(true)}>
               <div class="group  text-slate-100 transition-all duration-300 ease-in-out">
-                <p class="bg-left-bottom bg-gradient-to-r  from-blue-600  to-blue-400 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out hover:text-blue-400">
+                <p class="bg-gradient-to-r from-blue-600  to-blue-400  bg-[length:0%_2px] bg-left-bottom bg-no-repeat transition-all duration-500 ease-out hover:text-blue-400 group-hover:bg-[length:100%_2px]">
                   Projects
                 </p>
               </div>
             </a>
             <a href="#Resume" onClick={() => setClicked(true)}>
               <div class="group  text-slate-100 transition-all duration-300 ease-in-out">
-                <p class="bg-left-bottom bg-gradient-to-r  from-violet-600  to-violet-400 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out hover:text-violet-400">
+                <p class="bg-gradient-to-r from-violet-600  to-violet-400  bg-[length:0%_2px] bg-left-bottom bg-no-repeat transition-all duration-500 ease-out hover:text-violet-400 group-hover:bg-[length:100%_2px]">
                   Resume
                 </p>
               </div>
             </a>
             <a href="#About" onClick={() => setClicked(true)}>
               <div class="group  text-slate-100 transition-all duration-300 ease-in-out">
-                <p class="bg-left-bottom bg-gradient-to-r  from-teal-600  to-teal-400 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out hover:text-teal-400">
+                <p class="bg-gradient-to-r from-teal-600  to-teal-400  bg-[length:0%_2px] bg-left-bottom bg-no-repeat transition-all duration-500 ease-out hover:text-teal-400 group-hover:bg-[length:100%_2px]">
                   About
                 </p>
               </div>
@@ -145,19 +154,19 @@ function Home() {
   };
   const socialTabs = () => {
     return (
-      <div className="h-screen w-24 transition-all duration-1000 left-0 top-0 flex items-center fixed">
+      <div className="fixed left-0 top-0 z-50 flex h-screen w-24 items-center transition-all duration-1000">
         <div
-          className={`h-24 bg-slate-600 border-slate-100 border-r shadow-xl shadow-slate-600 absolute flex items-center justify-center rounded-r-xl z-0 ${
+          className={`absolute z-0 flex h-24 items-center justify-center rounded-r-xl border-r border-slate-100 bg-slate-600 shadow-xl shadow-slate-600 ${
             socialsVisible ? "w-0" : "w-1/4"
-          } transition-all duration-500 ease-in-out z-10  `}
+          } z-10 transition-all duration-500 ease-in-out  `}
           onMouseOver={() => setSocialsVisible(true)}
         >
           <ArrowForwardIosIcon style={{ width: "75%", color: "white" }} />
         </div>
         <div
-          className={`bg-slate-600 justify-evenly flex flex-col items-center ${
+          className={`flex flex-col items-center justify-evenly bg-slate-600 ${
             socialsVisible ? "w-3/4" : "w-0"
-          } rounded-r-xl h-1/2 min-h-48 transition-all duration-500 ease-in-out z-10 shadow-2xl shadow-slate-600 border-r border-t border-b border-slate-100`}
+          } z-10 h-1/2 min-h-48 rounded-r-xl border-b border-r border-t border-slate-100 shadow-2xl shadow-slate-600 transition-all duration-500 ease-in-out`}
           onMouseOver={() => setSocialsVisible(true)}
           onMouseOut={() => setSocialsVisible(false)}
         >
@@ -165,27 +174,27 @@ function Home() {
             href="https://github.com/eemsley"
             target="_blank"
             rel="noreferrer"
-            className={`w-full flex flex-col justify-center items-center  ${
+            className={`flex w-full flex-col items-center justify-center  ${
               socialsVisible
                 ? "text-slate-50 hover:text-lime-400"
                 : "text-transparent"
             }`}
           >
             <GitHubIcon style={{ width: "90%" }} />
-            <p className={`text-xs mb-2 transition-all duration-500`}>Github</p>
+            <p className={`mb-2 text-xs transition-all duration-500`}>Github</p>
           </a>
           <a
             href="https://www.linkedin.com/in/evan-emsley/"
             target="_blank"
             rel="noreferrer"
-            className={`w-full flex flex-col justify-center items-center  ${
+            className={`flex w-full flex-col items-center justify-center  ${
               socialsVisible
                 ? "text-slate-50 hover:text-blue-400"
                 : "text-transparent"
             }`}
           >
             <LinkedInIcon style={{ width: "90%" }} />
-            <p className={`text-xs mb-2 transition-all duration-500`}>
+            <p className={`mb-2 text-xs transition-all duration-500`}>
               LinkedIn
             </p>
           </a>
@@ -193,27 +202,27 @@ function Home() {
             href="https://www.instagram.com/evane273/"
             target="_blank"
             rel="noreferrer"
-            className={`w-full flex flex-col justify-center items-center  ${
+            className={`flex w-full flex-col items-center justify-center  ${
               socialsVisible
                 ? "text-slate-50 hover:text-violet-400"
                 : "text-transparent"
             }`}
           >
             <InstagramIcon style={{ width: "90%" }} />
-            <p className={`text-xs mb-2 transition-all duration-500`}>
+            <p className={`mb-2 text-xs transition-all duration-500`}>
               Instagram
             </p>
           </a>
           <a
             href="mailto:evan@emsley.us"
-            className={`w-full flex flex-col justify-center items-center  ${
+            className={`flex w-full flex-col items-center justify-center  ${
               socialsVisible
                 ? "text-slate-50 hover:text-teal-400"
                 : "text-transparent"
             }`}
           >
             <EmailRoundedIcon style={{ width: "90%" }} />
-            <p className={`text-xs mb-2 transition-all duration-500`}>Email</p>
+            <p className={`mb-2 text-xs transition-all duration-500`}>Email</p>
           </a>
         </div>
       </div>
@@ -221,12 +230,12 @@ function Home() {
   };
   const mobileSocialTabs = () => {
     return (
-      <div className="w-full bg-slate-600 flex-row flex justify-evenly items-center py-3">
+      <div className="flex w-full flex-row items-center justify-evenly bg-slate-600 py-3">
         <a
           href="https://github.com/eemsley"
           target="_blank"
           rel="noreferrer"
-          className={`w-full flex flex-col justify-center items-center text-slate-50 hover:text-lime-400`}
+          className={`flex w-full flex-col items-center justify-center text-slate-50 hover:text-lime-400`}
         >
           <GitHubIcon style={{ width: "90%" }} />
           <p className={`text-xs transition-all duration-500`}>Github</p>
@@ -235,7 +244,7 @@ function Home() {
           href="https://www.linkedin.com/in/evan-emsley/"
           target="_blank"
           rel="noreferrer"
-          className={`w-full flex flex-col justify-center items-center text-slate-50 hover:text-lime-400`}
+          className={`flex w-full flex-col items-center justify-center text-slate-50 hover:text-lime-400`}
         >
           <LinkedInIcon style={{ width: "90%" }} />
           <p className={`text-xs transition-all duration-500`}>LinkedIn</p>
@@ -244,14 +253,14 @@ function Home() {
           href="https://www.instagram.com/evane273/"
           target="_blank"
           rel="noreferrer"
-          className={`w-full flex flex-col justify-center items-center text-slate-50 hover:text-lime-400`}
+          className={`flex w-full flex-col items-center justify-center text-slate-50 hover:text-lime-400`}
         >
           <InstagramIcon style={{ width: "90%" }} />
           <p className={`text-xs transition-all duration-500`}>Instagram</p>
         </a>
         <a
           href="mailto:evan@emsley.us"
-          className={`w-full flex flex-col justify-center items-center text-slate-50 hover:text-lime-400`}
+          className={`flex w-full flex-col items-center justify-center text-slate-50 hover:text-lime-400`}
         >
           <EmailRoundedIcon style={{ width: "90%" }} />
           <p className={`text-xs transition-all duration-500`}>Email</p>
@@ -263,18 +272,18 @@ function Home() {
     return (
       <div
         id="Home"
-        className=" mt-12 w-5/6 max-w-6xl bg-slate-100 rounded-xl p-8  flex items-center justify-center flex-col flex-wrap"
+        className=" mt-12 flex w-5/6 max-w-6xl flex-col flex-wrap  items-center justify-center rounded-xl bg-slate-100 p-8"
       >
-        <p className="text-4xl transition-all duration-1000 font-bold text-slate-600 pb-6">
+        <p className="pb-6 text-4xl font-bold text-slate-600 transition-all duration-1000">
           Welcome!
         </p>
-        <p className="text-xl/tight text-center text-slate-600">
+        <p className="text-center text-xl/tight text-slate-600">
           I'm a Purdue Computer Science student, graduating in December 2024.
         </p>
-        <p className="text-xl/tight text-slate-600 pb-8 text-center">
+        <p className="pb-8 text-center text-xl/tight text-slate-600">
           Below is an overview of my skills, projects, and passions...
         </p>
-        <div className="w-full flex flex-row items-center justify-center flex-wrap">
+        <div className="flex w-full flex-row flex-wrap items-center justify-center">
           <div className="w-5/6 max-w-2xl">
             <p className="text-sm/normal text-slate-600">
               I've been coding since middle school and am very passionate about
@@ -290,7 +299,7 @@ function Home() {
               with Vercel. It's posted on my GitHub{" "}
               <a
                 href="https://github.com/eemsley/evan.emsley.us"
-                className="text-sky-600 underline hover:text-sky-300 transition-all duration-500 ease-in-out"
+                className="text-sky-600 underline transition-all duration-500 ease-in-out hover:text-sky-300"
               >
                 here
               </a>
@@ -299,7 +308,7 @@ function Home() {
               I'm always looking for new projects to work on, so feel free to
               email me at{" "}
               <a
-                className="text-sky-600 underline hover:text-sky-300 transition-all duration-500 ease-in-out"
+                className="text-sky-600 underline transition-all duration-500 ease-in-out hover:text-sky-300"
                 href="mailto:evan@emsley.us"
               >
                 evan@emsley.us
@@ -309,12 +318,12 @@ function Home() {
           <img
             src={require("../assets/Headshot.jpeg")}
             alt="headshot"
-            className="w-1/6 min-w-24 rounded-full shadow-lg shadow-slate-600 ml-8"
+            className="ml-8 w-1/6 min-w-24 rounded-full shadow-lg shadow-slate-600"
           />
         </div>
-        <div className="w-full  flex flex-row flex-wrap justify-evenly max-w-5xl space-x-2 items-center mt-8">
+        <div className="mt-8  flex w-full max-w-5xl flex-row flex-wrap items-center justify-evenly space-x-2">
           {skills.map((skill) => (
-            <p className="text-xs text-slate-100 p-2 bg-slate-600 rounded-full min-w-12 text-center hover:scale-110 transition-all duration-500 drop-shadow-xl mt-2">
+            <p className="mt-2 min-w-12 rounded-full bg-slate-600 p-2 text-center text-xs text-slate-100 drop-shadow-xl transition-all duration-500 hover:scale-110">
               {skill}
             </p>
           ))}
@@ -326,18 +335,18 @@ function Home() {
     return (
       <div
         id="Home"
-        className=" mt-8 w-5/6 max-w-6xl bg-slate-100 rounded-xl p-4 flex items-center justify-center flex-col flex-wrap"
+        className=" mt-8 flex w-5/6 max-w-6xl flex-col flex-wrap items-center justify-center rounded-xl bg-slate-100 p-4"
       >
-        <p className="text-xl transition-all duration-1000 font-bold text-slate-600 pb-2">
+        <p className="pb-2 text-xl font-bold text-slate-600 transition-all duration-1000">
           Welcome!
         </p>
-        <p className="text-sm/tight text-center text-slate-600">
+        <p className="text-center text-sm/tight text-slate-600">
           I'm a Purdue Computer Science student, graduating in December 2024.
         </p>
-        <p className="text-sm/tight text-slate-600 pb-4 text-center">
+        <p className="pb-4 text-center text-sm/tight text-slate-600">
           Below is an overview of my skills, projects, and passions...
         </p>
-        <div className="w-full flex flex-row items-center justify-center flex-wrap">
+        <div className="flex w-full flex-row flex-wrap items-center justify-center">
           <div className="pb-4">
             <p className="text-xs/tight text-slate-600">
               I've been coding since middle school and am very passionate about
@@ -351,13 +360,13 @@ function Home() {
               new technologies and grow as a developer.
             </p>
           </div>
-          <div className="w-full flex flex-row items-center justify-center flex-wrap">
-            <p className="text-xs text-slate-600 w-1/2">
+          <div className="flex w-full flex-row flex-wrap items-center justify-center">
+            <p className="w-1/2 text-xs text-slate-600">
               I made this website with React and Tailwind CSS, deployed with
               Vercel. It's posted on my GitHub{" "}
               <a
                 href="https://github.com/eemsley/evan.emsley.us"
-                className="text-sky-600 underline hover:text-sky-300 transition-all duration-500 ease-in-out"
+                className="text-sky-600 underline transition-all duration-500 ease-in-out hover:text-sky-300"
               >
                 here
               </a>
@@ -366,7 +375,7 @@ function Home() {
               I'm always looking for new projects to work on, so feel free to
               email me at{" "}
               <a
-                className="text-sky-600 underline hover:text-sky-300 transition-all duration-500 ease-in-out"
+                className="text-sky-600 underline transition-all duration-500 ease-in-out hover:text-sky-300"
                 href="mailto:evan@emsley.us"
               >
                 evan@emsley.us
@@ -381,9 +390,9 @@ function Home() {
             </div>
           </div>
         </div>
-        <div className="w-full flex flex-row flex-wrap justify-center space-x-2 items-center mt-4">
+        <div className="mt-4 flex w-full flex-row flex-wrap items-center justify-center space-x-2">
           {skills.map((skill) => (
-            <p className="text-xs text-slate-100 p-2 bg-slate-600 rounded-full min-w-12 text-center hover:scale-110 transition-all duration-500 mt-2">
+            <p className="mt-2 min-w-12 rounded-full bg-slate-600 p-2 text-center text-xs text-slate-100 transition-all duration-500 hover:scale-110">
               {skill}
             </p>
           ))}
@@ -393,38 +402,86 @@ function Home() {
   };
   const projectsContent = () => {
     return (
-      <>
-        <p
-          id="Projects"
-          className="text-4xl font-bold text-slate-600 py-8 w-full text-center mt-48"
-        >
+      <div id="Projects" className="mt-48 w-full bg-slate-200 pb-8 pt-8">
+        <p className="w-full text-center text-4xl  font-bold text-slate-600">
           Projects
         </p>
-        <div className={`w-full h-[70vh] bg-slate-200`}>{carousel()}</div>
-      </>
+        <div
+          style={{ maxHeight: 500 }}
+          className={`h-[70vh] w-full justify-center`}
+        >
+          {carousel()}
+        </div>
+        <div className="flex w-full flex-row items-center justify-center">
+          <div className="flex w-1/6 flex-row items-center justify-between rounded-full bg-slate-600 px-4 py-2 shadow-lg shadow-slate-800">
+            {projects.map((project, index) => (
+              <div
+                onClick={() => {
+                  setCarouselIndex(index);
+                  const child = document.getElementById(index);
+                  setCarouselIndex(index);
+                  child.scrollIntoView({
+                    behavior: "smooth",
+                    block: "nearest",
+                    inline: "center",
+                  });
+                }}
+                className={`h-3 w-3 cursor-pointer rounded-full transition-all duration-500 ${
+                  index === carouselIndex
+                    ? "bg-teal-500"
+                    : "bg-slate-100 hover:bg-teal-200"
+                }`}
+              ></div>
+            ))}
+          </div>
+        </div>
+      </div>
     );
   };
   const mobileProjects = () => {
     return (
-      <>
+      <div className="mt-12 w-full bg-slate-200 pb-4 pt-4">
         <p
           id="Projects"
-          className="text-xl font-bold text-slate-600 pb-2 w-full text-center mt-16"
+          className="w-full text-center text-xl font-bold text-slate-600"
         >
           Projects
         </p>
-        <div className={`w-full h-[55vh] bg-slate-200`}>{carousel()}</div>
-      </>
+        <div className={`h-[55vh] w-full bg-slate-200`}>{carousel()}</div>
+        <div className="flex w-full flex-row items-center justify-center">
+          <div className="flex w-1/3 flex-row items-center justify-between rounded-full bg-slate-600 px-2 py-1 shadow-lg shadow-slate-800">
+            {projects.map((project, index) => (
+              <div
+                onClick={() => {
+                  setCarouselIndex(index);
+                  const child = document.getElementById(index);
+                  setCarouselIndex(index);
+                  child.scrollIntoView({
+                    behavior: "smooth",
+                    block: "nearest",
+                    inline: "center",
+                  });
+                }}
+                className={`h-2 w-2 cursor-pointer rounded-full transition-all duration-500 ${
+                  index === carouselIndex
+                    ? "bg-teal-500"
+                    : "bg-slate-100 hover:bg-teal-200"
+                }`}
+              ></div>
+            ))}
+          </div>
+        </div>
+      </div>
     );
   };
   const resume = () => {
     return (
       <div
         id="Resume"
-        className=" mt-48 w-5/6 max-w-6xl bg-slate-100 rounded-xl p-8 flex items-center justify-center flex-col flex-wrap"
+        className=" mt-48 flex w-5/6 max-w-6xl flex-col flex-wrap items-center justify-center rounded-xl bg-slate-100 p-8"
       >
-        <p className="text-4xl font-bold text-slate-600 pb-8">Resume</p>
-        <div className="w-full max-w-4xl h-screen flex flex-row flex-wrap">
+        <p className="pb-8 text-4xl font-bold text-slate-600">Resume</p>
+        <div className="flex h-screen w-full max-w-4xl flex-row flex-wrap">
           <embed
             src={require("../assets/resume.pdf")}
             type="application/pdf"
@@ -438,11 +495,11 @@ function Home() {
   };
   const mobileResume = () => {
     return (
-      <div className="bg-slate-100 h-3/4 w-5/6 max-w-6xl p-4 flex flex-col items-center justify-center rounded-xl mt-12">
-        <p className="text-xl transition-all duration-1000 font-bold text-slate-600 pb-4">
+      <div className="mt-12 flex h-3/4 w-5/6 max-w-6xl flex-col items-center justify-center rounded-xl bg-slate-100 p-4">
+        <p className="pb-4 text-xl font-bold text-slate-600 transition-all duration-1000">
           Resume
         </p>
-        <div className=" w-full flex flex-row flex-wrap items-center justify-center">
+        <div className=" flex w-full flex-row flex-wrap items-center justify-center">
           <embed
             src={require("../assets/resume.pdf")}
             type="application/pdf"
@@ -452,7 +509,7 @@ function Home() {
             title="resume"
           />
         </div>
-        <p className="text-slate-600 text-xs text-center">
+        <p className="text-center text-xs text-slate-600">
           *This PDF embed may not render on certain browsers, here's a{" "}
           <a
             href="http://www.github.com"
@@ -470,23 +527,10 @@ function Home() {
     return (
       <div
         id="About"
-        className=" mt-48 w-5/6 max-w-6xl bg-slate-100 rounded-xl p-8 flex items-center justify-center flex-col flex-wrap"
+        className=" mb-12 mt-48 flex w-5/6 max-w-6xl flex-col flex-wrap items-center justify-center rounded-xl bg-slate-100 p-8"
       >
-        <p className="text-4xl font-bold text-slate-600 pb-8">More About Me</p>
-        <div className="w-full flex flex-row flex-wrap justify-evenly items-center">
-          <img
-            src={require("../assets/about1.jpg")}
-            alt="about1"
-            className="w-1/2 min-w-64 p-2 shadow-xl shadow-slate-600"
-          />
-
-          <img
-            src={require("../assets/about3.JPG")}
-            alt="about3"
-            className="w-1/2 min-w-64 p-2 shadow-xl shadow-slate-600"
-          />
-        </div>
-        <p className="text-center text-slate-800 text-sm p-4 mt-4">
+        <p className="pb-8 text-4xl font-bold text-slate-600">More About Me</p>
+        <p className="p-4 text-center text-sm text-slate-800">
           Outside of coding, I love to travel and play music. I've been on
           countless road trips around the US with my family and friends, camping
           and living out of a minivan. I've played guitar since middle school
@@ -497,16 +541,30 @@ function Home() {
           fraternity at Purdue. To stay active I enjoy lifting weights, running,
           and biking.
         </p>
-        <div className="w-full flex flex-row flex-wrap justify-evenly items-center">
+        <div className="flex w-full flex-row flex-wrap items-center justify-evenly">
+          <img
+            src={require("../assets/about1.jpg")}
+            alt="about1"
+            className="w-1/2 min-w-64 rounded-tl-xl"
+          />
+
+          <img
+            src={require("../assets/about3.JPG")}
+            alt="about3"
+            className="w-1/2 min-w-64 rounded-tr-xl"
+          />
+        </div>
+
+        <div className="flex w-full flex-row flex-wrap items-center justify-evenly">
           <img
             src={require("../assets/about5.JPG")}
             alt="about5"
-            className="w-1/2 min-w-64 p-2 shadow-xl shadow-slate-600"
+            className="w-1/2 min-w-64 rounded-bl-xl"
           />
           <img
             src={require("../assets/about4.JPG")}
             alt="about4"
-            className="w-1/2 min-w-64 p-2 shadow-xl shadow-slate-600"
+            className="w-1/2 min-w-64 rounded-br-xl"
           />
         </div>
       </div>
@@ -516,11 +574,11 @@ function Home() {
     return (
       <div
         id="About"
-        className=" mt-12 mb-12 w-5/6  bg-slate-100 rounded-xl px-2 pt-4 pb-2 flex items-center justify-center flex-col flex-wrap"
+        className=" mb-12 mt-12 flex  w-5/6 flex-col flex-wrap items-center justify-center rounded-xl bg-slate-100 px-2 pb-2 pt-4"
       >
         <p className="text-xl font-bold text-slate-600">More About Me</p>
 
-        <p className="text-slate-800 text-xs/tight px-4 pb-4">
+        <p className="px-4 pb-4 text-xs/tight text-slate-800">
           Outside of coding, I love to travel and play music. I've been on
           countless road trips around the US with my family and friends, camping
           and living out of a minivan. I've played guitar since middle school
@@ -531,7 +589,7 @@ function Home() {
           fraternity at Purdue. To stay active I enjoy lifting weights, running,
           and biking.
         </p>
-        <div className="w-full flex flex-row flex-wrap justify-evenly items-center">
+        <div className="flex w-full flex-row flex-wrap items-center justify-evenly">
           <img
             src={require("../assets/about5.JPG")}
             alt="about5"
@@ -564,7 +622,7 @@ function Home() {
       {!isMobile && header()}
       <div
         id="wrapper"
-        className="h-full w-full items-center flex flex-col"
+        className="flex h-full w-full flex-col items-center"
         onClick={() => setSocialsVisible(false)}
       >
         {isMobile && mobileSocialTabs()}
@@ -572,6 +630,11 @@ function Home() {
         {isMobile ? mobileProjects() : projectsContent()}
         {isMobile ? mobileResume() : resume()}
         {isMobile ? mobileAbout() : about()}
+        {isMobile && (
+          <p className="w-full pb-2 text-center text-xs text-slate-600">
+            ...for best experience, visit this page from a computer!
+          </p>
+        )}
       </div>
     </div>
   );

@@ -128,7 +128,7 @@ function Ronald() {
 
   return (
     <div className="h-full w-full">
-      <div className="justify-center items-center flex-row flex flex-wrap">
+      <div className="flex flex-row flex-wrap items-center justify-center">
         {ronaldpics()}
         {ronaldpics()}
         {ronaldpics()}
