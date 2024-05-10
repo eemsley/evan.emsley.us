@@ -512,13 +512,14 @@ function Home() {
         <p className="text-center text-xs text-slate-600">
           *This PDF embed may not render on certain browsers, here's a{" "}
           <a
-            href="http://www.github.com"
+            href="https://drive.google.com/file/d/12TWjeGaN2g7MfH4SweEOpK2Utbh9qChU/view?usp=drive_link"
             target="_blank"
             className="text-sky-500 underline"
             rel="noreferrer"
           >
-            link.
+            link
           </a>
+          .
         </p>
       </div>
     );
