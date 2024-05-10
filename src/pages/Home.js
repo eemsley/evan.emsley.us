@@ -7,6 +7,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { projects, skills } from "../data/data.js";
 import { useEffect, useState } from "react";
+import { ArrowBackIos } from "@mui/icons-material";
 
 function Home() {
   let scrollDirection = useScrollDirection();
@@ -38,30 +39,32 @@ function Home() {
 
   const [socialsVisible, setSocialsVisible] = useState(isMobile ? false : true);
 
+  const scrollCarousel = (index) => {
+    setCarouselIndex(index);
+    const child = document.getElementById(index);
+    child.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center",
+    });
+  };
+
   const carousel = () => {
     return (
       <div
         id={"carousel"}
-        className={`no-scrollbar flex h-full w-full flex-row overflow-x-scroll bg-slate-200 py-12 ${
-          isMobile ? "px-8" : "px-48"
+        className={`no-scrollbar bg-primary-100 flex h-full w-full touch-pan-y flex-row overflow-x-scroll py-12 ${
+          isMobile ? "pl-4 pr-8" : "px-48"
         }`}
       >
         {projects.map((project, index) => (
           <div
             id={index}
             className={`${
-              index === carouselIndex
-                ? "scale-110"
-                : "scale-100 hover:bg-slate-600/90"
-            } mx-4 flex aspect-square h-full cursor-pointer flex-col items-center justify-center space-y-2 rounded-xl bg-slate-600 p-4 text-slate-100 shadow-lg shadow-slate-800 transition-all duration-500`}
+              index === carouselIndex ? "scale-110" : "hover:bg-primary-800/80"
+            } bg-primary-800 text-primary-50 shadow-primary-800 mx-4 flex aspect-square h-full cursor-pointer flex-col items-center justify-center space-y-2 rounded-xl p-4 shadow-lg transition-all duration-500`}
             onClick={() => {
-              const child = document.getElementById(index);
-              setCarouselIndex(index);
-              child.scrollIntoView({
-                behavior: "smooth",
-                block: "nearest",
-                inline: "center",
-              });
+              scrollCarousel(index);
             }}
           >
             <p className={`${isMobile ? "text-base" : "text-xl"}`}>
@@ -78,7 +81,7 @@ function Home() {
                   href={project.github}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-sky-400 transition-all duration-500 hover:text-sky-600 hover:underline"
+                  className="text-sky-300 transition-all duration-500 hover:text-sky-400 hover:underline"
                 >
                   GitHub
                 </a>
@@ -88,7 +91,7 @@ function Home() {
                   href={project.link}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-sky-400 transition-all duration-500 hover:text-sky-600 hover:underline"
+                  className="text-sky-300 transition-all duration-500 hover:text-sky-400 hover:underline"
                 >
                   Website
                 </a>
@@ -104,12 +107,9 @@ function Home() {
       <div
         className={`sticky ${
           scrollDirection === "down" || clicked === true ? "-top-16" : "top-0"
-        }  ${
-          position === 0 ? "bg-slate-600" : "bg-slate-600/20 hover:bg-slate-600"
-        }
-      duration-250 h-16 scroll-smooth transition-all ease-in-out`}
+        }  ${position === 0 ? "bg-primary-800" : "bg-primary-800/30 hover:bg-primary-800"} duration-250 border-primary-100/50 z-50 h-16 scroll-smooth border-b transition-all ease-in-out`}
       >
-        <div className="flex h-full w-full flex-row items-center  justify-center text-slate-100">
+        <div className="text-primary-50 flex h-full w-full flex-row  items-center justify-center">
           <div className="absolute left-0 flex w-1/4 items-center justify-center p-4">
             <p className="rounded-lg px-1 text-lg italic">evan.emsley.us</p>
           </div>
@@ -120,28 +120,28 @@ function Home() {
             } `}
           >
             <a href="#Home" onClick={() => setClicked(true)}>
-              <div class="group  text-slate-100 transition-all duration-300 ease-in-out">
+              <div class="text-primary-50  group transition-all duration-300 ease-in-out">
                 <p class="  bg-gradient-to-r from-lime-600 to-lime-400 bg-[length:0%_2px] bg-left-bottom bg-no-repeat transition-all duration-500 ease-out hover:text-lime-400 group-hover:bg-[length:100%_2px]">
                   Home
                 </p>
               </div>
             </a>
             <a href="#Projects" onClick={() => setClicked(true)}>
-              <div class="group  text-slate-100 transition-all duration-300 ease-in-out">
+              <div class="text-primary-50  group transition-all duration-300 ease-in-out">
                 <p class="bg-gradient-to-r from-blue-600  to-blue-400  bg-[length:0%_2px] bg-left-bottom bg-no-repeat transition-all duration-500 ease-out hover:text-blue-400 group-hover:bg-[length:100%_2px]">
                   Projects
                 </p>
               </div>
             </a>
             <a href="#Resume" onClick={() => setClicked(true)}>
-              <div class="group  text-slate-100 transition-all duration-300 ease-in-out">
+              <div class="text-primary-50  group transition-all duration-300 ease-in-out">
                 <p class="bg-gradient-to-r from-violet-600  to-violet-400  bg-[length:0%_2px] bg-left-bottom bg-no-repeat transition-all duration-500 ease-out hover:text-violet-400 group-hover:bg-[length:100%_2px]">
                   Resume
                 </p>
               </div>
             </a>
             <a href="#About" onClick={() => setClicked(true)}>
-              <div class="group  text-slate-100 transition-all duration-300 ease-in-out">
+              <div class="text-primary-50  group transition-all duration-300 ease-in-out">
                 <p class="bg-gradient-to-r from-teal-600  to-teal-400  bg-[length:0%_2px] bg-left-bottom bg-no-repeat transition-all duration-500 ease-out hover:text-teal-400 group-hover:bg-[length:100%_2px]">
                   About
                 </p>
@@ -156,7 +156,7 @@ function Home() {
     return (
       <div className="fixed left-0 top-0 z-50 flex h-screen w-24 items-center transition-all duration-1000">
         <div
-          className={`absolute z-0 flex h-24 items-center justify-center rounded-r-xl border-r border-slate-100 bg-slate-600 shadow-xl shadow-slate-600 ${
+          className={`border-primary-100 bg-primary-800 shadow-primary-800 absolute z-0 flex h-24 items-center justify-center rounded-r-xl border-b border-r border-t shadow-xl ${
             socialsVisible ? "w-0" : "w-1/4"
           } z-10 transition-all duration-500 ease-in-out  `}
           onMouseOver={() => setSocialsVisible(true)}
@@ -164,9 +164,9 @@ function Home() {
           <ArrowForwardIosIcon style={{ width: "75%", color: "white" }} />
         </div>
         <div
-          className={`flex flex-col items-center justify-evenly bg-slate-600 ${
-            socialsVisible ? "w-3/4" : "w-0"
-          } z-10 h-1/2 min-h-48 rounded-r-xl border-b border-r border-t border-slate-100 shadow-2xl shadow-slate-600 transition-all duration-500 ease-in-out`}
+          className={`bg-primary-800 flex flex-col items-center justify-evenly ${
+            socialsVisible ? "w-3/4 border-b border-r border-t" : "w-0"
+          } border-primary-100 shadow-primary-800 z-10 h-1/2 min-h-48 rounded-r-xl shadow-2xl transition-all duration-500 ease-in-out`}
           onMouseOver={() => setSocialsVisible(true)}
           onMouseOut={() => setSocialsVisible(false)}
         >
@@ -176,7 +176,7 @@ function Home() {
             rel="noreferrer"
             className={`flex w-full flex-col items-center justify-center  ${
               socialsVisible
-                ? "text-slate-50 hover:text-lime-400"
+                ? "text-primary-50 hover:text-lime-300"
                 : "text-transparent"
             }`}
           >
@@ -189,7 +189,7 @@ function Home() {
             rel="noreferrer"
             className={`flex w-full flex-col items-center justify-center  ${
               socialsVisible
-                ? "text-slate-50 hover:text-blue-400"
+                ? "text-primary-50 hover:text-blue-300"
                 : "text-transparent"
             }`}
           >
@@ -204,7 +204,7 @@ function Home() {
             rel="noreferrer"
             className={`flex w-full flex-col items-center justify-center  ${
               socialsVisible
-                ? "text-slate-50 hover:text-violet-400"
+                ? "text-primary-50 hover:text-violet-300"
                 : "text-transparent"
             }`}
           >
@@ -217,7 +217,7 @@ function Home() {
             href="mailto:evan@emsley.us"
             className={`flex w-full flex-col items-center justify-center  ${
               socialsVisible
-                ? "text-slate-50 hover:text-teal-400"
+                ? "text-primary-50 hover:text-teal-300"
                 : "text-transparent"
             }`}
           >
@@ -230,12 +230,12 @@ function Home() {
   };
   const mobileSocialTabs = () => {
     return (
-      <div className="flex w-full flex-row items-center justify-evenly bg-slate-600 py-3">
+      <div className="bg-primary-800 flex w-full flex-row items-center justify-evenly py-3">
         <a
           href="https://github.com/eemsley"
           target="_blank"
           rel="noreferrer"
-          className={`flex w-full flex-col items-center justify-center text-slate-50 hover:text-lime-400`}
+          className={`text-primary-50 flex w-full flex-col items-center justify-center hover:text-lime-400`}
         >
           <GitHubIcon style={{ width: "90%" }} />
           <p className={`text-xs transition-all duration-500`}>Github</p>
@@ -244,7 +244,7 @@ function Home() {
           href="https://www.linkedin.com/in/evan-emsley/"
           target="_blank"
           rel="noreferrer"
-          className={`flex w-full flex-col items-center justify-center text-slate-50 hover:text-lime-400`}
+          className={`text-primary-50 flex w-full flex-col items-center justify-center hover:text-lime-400`}
         >
           <LinkedInIcon style={{ width: "90%" }} />
           <p className={`text-xs transition-all duration-500`}>LinkedIn</p>
@@ -253,14 +253,14 @@ function Home() {
           href="https://www.instagram.com/evane273/"
           target="_blank"
           rel="noreferrer"
-          className={`flex w-full flex-col items-center justify-center text-slate-50 hover:text-lime-400`}
+          className={`text-primary-50 flex w-full flex-col items-center justify-center hover:text-lime-400`}
         >
           <InstagramIcon style={{ width: "90%" }} />
           <p className={`text-xs transition-all duration-500`}>Instagram</p>
         </a>
         <a
           href="mailto:evan@emsley.us"
-          className={`flex w-full flex-col items-center justify-center text-slate-50 hover:text-lime-400`}
+          className={`text-primary-50 flex w-full flex-col items-center justify-center hover:text-lime-400`}
         >
           <EmailRoundedIcon style={{ width: "90%" }} />
           <p className={`text-xs transition-all duration-500`}>Email</p>
@@ -272,20 +272,21 @@ function Home() {
     return (
       <div
         id="Home"
-        className=" mt-12 flex w-5/6 max-w-6xl flex-col flex-wrap  items-center justify-center rounded-xl bg-slate-100 p-8"
+        className=" bg-primary-100 mt-12 flex w-5/6 max-w-6xl flex-col  flex-wrap items-center justify-center rounded-xl p-8"
       >
-        <p className="pb-6 text-4xl font-bold text-slate-600 transition-all duration-1000">
+        <p className="text-primary-800 pb-6 text-4xl font-bold transition-all duration-1000">
           Welcome!
         </p>
-        <p className="text-center text-xl/tight text-slate-600">
-          I'm a Purdue Computer Science student, graduating in December 2024.
+        <p className="text-primary-800 text-center text-xl/tight">
+          I'm Evan, a Purdue Computer Science student graduating in December
+          2024.
         </p>
-        <p className="pb-8 text-center text-xl/tight text-slate-600">
+        <p className="text-primary-800 pb-8 text-center text-xl/tight">
           Below is an overview of my skills, projects, and passions...
         </p>
         <div className="flex w-full flex-row flex-wrap items-center justify-center">
           <div className="w-5/6 max-w-2xl">
-            <p className="text-sm/normal text-slate-600">
+            <p className="text-primary-800 text-sm/normal">
               I've been coding since middle school and am very passionate about
               software development. I've worked on projects from mobile
               applications to low-level operating system development, and am
@@ -318,12 +319,12 @@ function Home() {
           <img
             src={require("../assets/Headshot.jpeg")}
             alt="headshot"
-            className="ml-8 w-1/6 min-w-24 rounded-full shadow-lg shadow-slate-600"
+            className="shadow-primary-800 ml-8 w-1/6 min-w-24 rounded-full shadow-lg"
           />
         </div>
         <div className="mt-8  flex w-full max-w-5xl flex-row flex-wrap items-center justify-evenly space-x-2">
           {skills.map((skill) => (
-            <p className="mt-2 min-w-12 rounded-full bg-slate-600 p-2 text-center text-xs text-slate-100 drop-shadow-xl transition-all duration-500 hover:scale-110">
+            <p className="bg-primary-800 text-primary-50 mt-2 min-w-12 rounded-full p-2 text-center text-xs drop-shadow-xl transition-all duration-500 hover:scale-110">
               {skill}
             </p>
           ))}
@@ -335,20 +336,21 @@ function Home() {
     return (
       <div
         id="Home"
-        className=" mt-8 flex w-5/6 max-w-6xl flex-col flex-wrap items-center justify-center rounded-xl bg-slate-100 p-4"
+        className=" bg-primary-100 mt-8 flex w-5/6 max-w-6xl flex-col flex-wrap items-center justify-center rounded-xl p-4"
       >
-        <p className="pb-2 text-xl font-bold text-slate-600 transition-all duration-1000">
+        <p className="text-primary-800 pb-2 text-xl font-bold transition-all duration-1000">
           Welcome!
         </p>
-        <p className="text-center text-sm/tight text-slate-600">
-          I'm a Purdue Computer Science student, graduating in December 2024.
+        <p className="text-primary-800 text-center text-sm/tight">
+          I'm Evan, a Purdue Computer Science student graduating in December
+          2024.
         </p>
-        <p className="pb-4 text-center text-sm/tight text-slate-600">
+        <p className="text-primary-800 pb-4 text-center text-sm/tight">
           Below is an overview of my skills, projects, and passions...
         </p>
         <div className="flex w-full flex-row flex-wrap items-center justify-center">
           <div className="pb-4">
-            <p className="text-xs/tight text-slate-600">
+            <p className="text-primary-800 text-xs/tight">
               I've been coding since middle school and am very passionate about
               software development. I've worked on projects from mobile
               applications to low-level operating system development, and am
@@ -361,7 +363,7 @@ function Home() {
             </p>
           </div>
           <div className="flex w-full flex-row flex-wrap items-center justify-center">
-            <p className="w-1/2 text-xs text-slate-600">
+            <p className="text-primary-800 w-1/2 text-xs">
               I made this website with React and Tailwind CSS, deployed with
               Vercel. It's posted on my GitHub{" "}
               <a
@@ -385,14 +387,14 @@ function Home() {
               <img
                 src={require("../assets/Headshot.jpeg")}
                 alt="headshot"
-                className="w-full rounded-full bg-slate-100"
+                className="bg-primary-100 w-full rounded-full"
               />
             </div>
           </div>
         </div>
         <div className="mt-4 flex w-full flex-row flex-wrap items-center justify-center space-x-2">
           {skills.map((skill) => (
-            <p className="mt-2 min-w-12 rounded-full bg-slate-600 p-2 text-center text-xs text-slate-100 transition-all duration-500 hover:scale-110">
+            <p className="bg-primary-800 text-primary-50 mt-2 min-w-12 rounded-full p-2 text-center text-xs transition-all duration-500 hover:scale-110">
               {skill}
             </p>
           ))}
@@ -402,8 +404,8 @@ function Home() {
   };
   const projectsContent = () => {
     return (
-      <div id="Projects" className="mt-48 w-full bg-slate-200 pb-8 pt-8">
-        <p className="w-full text-center text-4xl  font-bold text-slate-600">
+      <div id="Projects" className="bg-primary-100 mt-48 w-full pb-8 pt-8">
+        <p className="text-primary-800 w-full text-center  text-4xl font-bold">
           Projects
         </p>
         <div
@@ -413,26 +415,43 @@ function Home() {
           {carousel()}
         </div>
         <div className="flex w-full flex-row items-center justify-center">
-          <div className="flex w-1/6 flex-row items-center justify-between rounded-full bg-slate-600 px-4 py-2 shadow-lg shadow-slate-800">
+          <div
+            onClick={() => {
+              if (carouselIndex > 0) {
+                scrollCarousel(carouselIndex - 1);
+              } else {
+                scrollCarousel(projects.length - 1);
+              }
+            }}
+            className="bg-primary-800 hover:bg-primary-800/60 text-primary-50 mx-4 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full transition-all duration-500"
+          >
+            <ArrowBackIos sx={{ fontSize: 20, paddingLeft: 0.5 }} />
+          </div>
+          <div className="bg-primary-100 flex w-1/6 cursor-pointer flex-row items-center justify-between rounded-full px-4 py-2">
             {projects.map((project, index) => (
               <div
                 onClick={() => {
-                  setCarouselIndex(index);
-                  const child = document.getElementById(index);
-                  setCarouselIndex(index);
-                  child.scrollIntoView({
-                    behavior: "smooth",
-                    block: "nearest",
-                    inline: "center",
-                  });
+                  scrollCarousel(index);
                 }}
                 className={`h-3 w-3 cursor-pointer rounded-full transition-all duration-500 ${
                   index === carouselIndex
-                    ? "bg-teal-500"
-                    : "bg-slate-100 hover:bg-teal-200"
+                    ? "bg-primary-800"
+                    : "bg-primary-200 hover:bg-primary-400"
                 }`}
-              ></div>
+              />
             ))}
+          </div>
+          <div
+            onClick={() => {
+              if (carouselIndex < projects.length - 1) {
+                scrollCarousel(carouselIndex + 1);
+              } else {
+                scrollCarousel(0);
+              }
+            }}
+            className="bg-primary-800 hover:bg-primary-800/60 text-primary-50 mx-4 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full transition-all duration-500"
+          >
+            <ArrowForwardIosIcon sx={{ fontSize: 20, paddingLeft: 0.5 }} />
           </div>
         </div>
       </div>
@@ -440,35 +459,52 @@ function Home() {
   };
   const mobileProjects = () => {
     return (
-      <div className="mt-12 w-full bg-slate-200 pb-4 pt-4">
+      <div className="bg-primary-100 mt-12 w-full pb-4 pt-4">
         <p
           id="Projects"
-          className="w-full text-center text-xl font-bold text-slate-600"
+          className="text-primary-800 w-full text-center text-xl font-bold"
         >
           Projects
         </p>
-        <div className={`h-[55vh] w-full bg-slate-200`}>{carousel()}</div>
+        <div className={`bg-primary-100 h-[55vh] w-full`}>{carousel()}</div>
         <div className="flex w-full flex-row items-center justify-center">
-          <div className="flex w-1/3 flex-row items-center justify-between rounded-full bg-slate-600 px-2 py-1 shadow-lg shadow-slate-800">
+          <div
+            onClick={() => {
+              if (carouselIndex > 0) {
+                scrollCarousel(carouselIndex - 1);
+              } else {
+                scrollCarousel(projects.length - 1);
+              }
+            }}
+            className="bg-primary-800 text-primary-50 mx-4 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full transition-all duration-500"
+          >
+            <ArrowBackIos sx={{ fontSize: 20, paddingLeft: 0.5 }} />
+          </div>
+          <div className="bg-primary-100 flex w-1/3 cursor-pointer flex-row items-center justify-between rounded-full px-4 py-2">
             {projects.map((project, index) => (
               <div
                 onClick={() => {
-                  setCarouselIndex(index);
-                  const child = document.getElementById(index);
-                  setCarouselIndex(index);
-                  child.scrollIntoView({
-                    behavior: "smooth",
-                    block: "nearest",
-                    inline: "center",
-                  });
+                  scrollCarousel(index);
                 }}
-                className={`h-2 w-2 cursor-pointer rounded-full transition-all duration-500 ${
+                className={`h-3 w-3 cursor-pointer rounded-full transition-all duration-500 ${
                   index === carouselIndex
-                    ? "bg-teal-500"
-                    : "bg-slate-100 hover:bg-teal-200"
+                    ? "bg-primary-800"
+                    : "bg-primary-200 hover:bg-primary-400"
                 }`}
-              ></div>
+              />
             ))}
+          </div>
+          <div
+            onClick={() => {
+              if (carouselIndex < projects.length - 1) {
+                scrollCarousel(carouselIndex + 1);
+              } else {
+                scrollCarousel(0);
+              }
+            }}
+            className="bg-primary-800 text-primary-50 mx-4 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full transition-all duration-500"
+          >
+            <ArrowForwardIosIcon sx={{ fontSize: 20, paddingLeft: 0.5 }} />
           </div>
         </div>
       </div>
@@ -478,9 +514,9 @@ function Home() {
     return (
       <div
         id="Resume"
-        className=" mt-48 flex w-5/6 max-w-6xl flex-col flex-wrap items-center justify-center rounded-xl bg-slate-100 p-8"
+        className=" bg-primary-100 mt-48 flex w-5/6 max-w-6xl flex-col flex-wrap items-center justify-center rounded-xl p-8"
       >
-        <p className="pb-8 text-4xl font-bold text-slate-600">Resume</p>
+        <p className="text-primary-800 pb-8 text-4xl font-bold">Resume</p>
         <div className="flex h-screen w-full max-w-4xl flex-row flex-wrap">
           <embed
             src={require("../assets/resume.pdf")}
@@ -490,13 +526,25 @@ function Home() {
             title="resume"
           />
         </div>
+        <p className="text-primary-800 text-center text-xs">
+          *This PDF embed may not render on certain browsers, here's a{" "}
+          <a
+            href="https://drive.google.com/file/d/12TWjeGaN2g7MfH4SweEOpK2Utbh9qChU/view?usp=drive_link"
+            target="_blank"
+            className="text-sky-500 underline"
+            rel="noreferrer"
+          >
+            link
+          </a>
+          .
+        </p>
       </div>
     );
   };
   const mobileResume = () => {
     return (
-      <div className="mt-12 flex h-3/4 w-5/6 max-w-6xl flex-col items-center justify-center rounded-xl bg-slate-100 p-4">
-        <p className="pb-4 text-xl font-bold text-slate-600 transition-all duration-1000">
+      <div className="bg-primary-100 mt-12 flex h-3/4 w-5/6 max-w-6xl flex-col items-center justify-center rounded-xl p-4">
+        <p className="text-primary-800 pb-4 text-xl font-bold transition-all duration-1000">
           Resume
         </p>
         <div className=" flex w-full flex-row flex-wrap items-center justify-center">
@@ -509,7 +557,7 @@ function Home() {
             title="resume"
           />
         </div>
-        <p className="text-center text-xs text-slate-600">
+        <p className="text-primary-800 text-center text-xs">
           *This PDF embed may not render on certain browsers, here's a{" "}
           <a
             href="https://drive.google.com/file/d/12TWjeGaN2g7MfH4SweEOpK2Utbh9qChU/view?usp=drive_link"
@@ -528,10 +576,12 @@ function Home() {
     return (
       <div
         id="About"
-        className=" mb-12 mt-48 flex w-5/6 max-w-6xl flex-col flex-wrap items-center justify-center rounded-xl bg-slate-100 p-8"
+        className=" bg-primary-100 mb-12 mt-48 flex w-5/6 max-w-6xl flex-col flex-wrap items-center justify-center rounded-xl p-8"
       >
-        <p className="pb-8 text-4xl font-bold text-slate-600">More About Me</p>
-        <p className="p-4 text-center text-sm text-slate-800">
+        <p className="text-primary-800 pb-8 text-4xl font-bold">
+          More About Me
+        </p>
+        <p className="text-primary-800 p-4 text-center text-sm">
           Outside of coding, I love to travel and play music. I've been on
           countless road trips around the US with my family and friends, camping
           and living out of a minivan. I've played guitar since middle school
@@ -575,11 +625,11 @@ function Home() {
     return (
       <div
         id="About"
-        className=" mb-12 mt-12 flex  w-5/6 flex-col flex-wrap items-center justify-center rounded-xl bg-slate-100 px-2 pb-2 pt-4"
+        className=" bg-primary-100 mb-12 mt-12  flex w-5/6 flex-col flex-wrap items-center justify-center rounded-xl px-2 pb-2 pt-4"
       >
-        <p className="text-xl font-bold text-slate-600">More About Me</p>
+        <p className="text-primary-800 text-xl font-bold">More About Me</p>
 
-        <p className="px-4 pb-4 text-xs/tight text-slate-800">
+        <p className="text-primary-800 px-4 pb-4 text-xs/tight">
           Outside of coding, I love to travel and play music. I've been on
           countless road trips around the US with my family and friends, camping
           and living out of a minivan. I've played guitar since middle school
@@ -632,7 +682,7 @@ function Home() {
         {isMobile ? mobileResume() : resume()}
         {isMobile ? mobileAbout() : about()}
         {isMobile && (
-          <p className="w-full pb-2 text-center text-xs text-slate-600">
+          <p className="text-primary-800 w-full pb-2 text-center text-xs">
             ...for best experience, visit this page from a computer!
           </p>
         )}
