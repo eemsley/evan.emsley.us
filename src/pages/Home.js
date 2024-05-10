@@ -14,7 +14,9 @@ function Home() {
   useEffect(() => {
     setClicked(false);
   }, [scrollDirection]);
+
   const position = useScrollLocation();
+
   const [clicked, setClicked] = useState(false);
 
   const [width, setWidth] = useState(window.innerWidth);
@@ -22,6 +24,7 @@ function Home() {
   function handleWindowSizeChange() {
     setWidth(window.innerWidth);
   }
+
   useEffect(() => {
     window.addEventListener("resize", handleWindowSizeChange);
     return () => {
@@ -30,145 +33,30 @@ function Home() {
   }, []);
 
   const isMobile = width <= 768;
+
   const [socialsVisible, setSocialsVisible] = useState(isMobile ? false : true);
 
-  function MobileProjects() {
-    return (
-      <div className="bg-slate-100 h-3/4 w-5/6 max-w-6xl pb-16 pt-8 flex flex-col items-center justify-center rounded-xl">
-        <p className="text-4xl transition-all duration-1000 font-bold text-slate-600 pb-8">
-          Projects
-        </p>
-        <div className=" w-full flex flex-row flex-wrap items-center justify-center">
-          {projects.map((project) => (
-            <div className=" w-1/2 min-w-72 aspect-square bg-slate-600 items-center justify-center flex flex-col p-4 border-8 border-slate-100 rounded-xl">
-              <a href={project.link == null ? null : project.link}>
-                <p className="text-2xl font-bold text-slate-50 pb-2 text-center">
-                  {project.title}
-                </p>
-              </a>
-              <p className="text-xs text-slate-50 text-center mb-2">
-                {project.technologies.join(", ")}
-              </p>
-
-              <img
-                src={project.image}
-                alt="project"
-                className="w-3/4 hover:w-full transition-all duration-1000 mb-4 border-2 shadow-lg shadow-slate-800 border-slate-200"
-              />
-
-              <p className="text-sm text-slate-50 text-center">
-                {project.description}
-                {"  "}
-                {project.github && (
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-sky-300 hover:text-sky-500 transition-all duration-500 ease-in-out underline"
-                  >
-                    GitHub
-                  </a>
-                )}
-                {"  "}
-                {project.link && (
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-sky-300 hover:text-sky-500 transition-all duration-500 ease-in-out underline"
-                  >
-                    Website
-                  </a>
-                )}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-  const about = () => {
-    return (
-      <div
-        id="About"
-        className=" mt-48 w-5/6 max-w-6xl bg-slate-100 rounded-xl p-8 flex items-center justify-center flex-col flex-wrap"
-      >
-        <p className="text-4xl font-bold text-slate-600 pb-8">More About Me</p>
-        <div className="w-full flex flex-row flex-wrap justify-evenly items-center">
-          <img
-            src={require("../assets/about1.jpg")}
-            alt="about1"
-            className="w-1/2 min-w-64 p-2 shadow-xl shadow-slate-600"
-          />
-
-          <img
-            src={require("../assets/about3.JPG")}
-            alt="about3"
-            className="w-1/2 min-w-64 p-2 shadow-xl shadow-slate-600"
-          />
-        </div>
-        <p className="text-center text-slate-800 text-sm p-4 mt-4">
-          Outside of coding, I love to travel and play music. I've been on
-          countless road trips around the US with my family and friends, camping
-          and living out of a minivan. I've played guitar since middle school
-          and have been a part of many bands. Most notably, my best friends in
-          high school and I formed the band Arboretum, and we've recorded lots
-          of original music available on our Spotify. I play guitar for Campus
-          House Ministries at Purdue, and I'm a member of the Phi Delta Theta
-          fraternity at Purdue. To stay active I enjoy lifting weights, running,
-          and biking.
-        </p>
-        <div className="w-full flex flex-row flex-wrap justify-evenly items-center">
-          <img
-            src={require("../assets/about5.JPG")}
-            alt="about5"
-            className="w-1/2 min-w-64 p-2 shadow-xl shadow-slate-600"
-          />
-          <img
-            src={require("../assets/about4.JPG")}
-            alt="about4"
-            className="w-1/2 min-w-64 p-2 shadow-xl shadow-slate-600"
-          />
-        </div>
-      </div>
-    );
-  };
-  const resume = () => {
-    return (
-      <div
-        id="Resume"
-        className=" mt-48 w-5/6 max-w-6xl bg-slate-100 rounded-xl p-8 flex items-center justify-center flex-col flex-wrap"
-      >
-        <p className="text-4xl font-bold text-slate-600 pb-8">Resume</p>
-        <div className="w-full max-w-4xl h-screen flex flex-row flex-wrap">
-          <embed
-            src={require("../assets/resume.pdf")}
-            type="application/pdf"
-            width="100%"
-            height="85%"
-            title="resume"
-          />
-        </div>
-      </div>
-    );
-  };
   const carousel = () => {
     return (
       <div
         id={"carousel"}
-        className="w-full h-full bg-slate-200 py-12 flex-row flex overflow-x-scroll no-scrollbar px-48"
+        className={`w-full h-full bg-slate-200 py-12 flex-row flex overflow-x-scroll ${
+          isMobile ? "px-8" : "px-48 no-scrollbar"
+        }`}
       >
         {projects.map((project, index) => (
           <div
             id={index}
             className="h-full shadow-xl rounded-xl shadow-slate-800 hover:scale-110 transition-all duration-500 aspect-square bg-slate-600 justify-center items-center flex flex-col cursor-pointer mx-4 p-4 space-y-2 text-slate-100"
-            onClick={() => {
-              const child = document.getElementById(index);
-              child.scrollIntoView({
-                behavior: "smooth",
-                block: "nearest",
-                inline: "center",
-              });
+            onClick={async () => {
+              setTimeout(() => {
+                const child = document.getElementById(index);
+                child.scrollIntoView({
+                  behavior: "smooth",
+                  block: "nearest",
+                  inline: "center",
+                });
+              }, 0);
             }}
           >
             <p className="text-xl">{project.title}</p>
@@ -202,23 +90,173 @@ function Home() {
       </div>
     );
   };
-  const projectsContent = () => {
+  const header = () => {
     return (
-      <>
-        <p
-          id="Projects"
-          className="text-4xl font-bold text-slate-600 py-8 w-full text-center mt-48"
-        >
-          Projects
-        </p>
-        <div
-          className={`w-full ${
-            isMobile ? "h-[55vh]" : "h-[70vh]"
-          }  bg-slate-200`}
-        >
-          {carousel()}
+      <div
+        className={`sticky ${
+          scrollDirection === "down" || clicked === true ? "-top-16" : "top-0"
+        }  ${
+          position === 0 ? "bg-slate-600" : "bg-slate-600/20 hover:bg-slate-600"
+        }
+      h-16 transition-all duration-250 ease-in-out scroll-smooth`}
+      >
+        <div className="h-full w-full flex flex-row justify-center  text-slate-100 items-center">
+          <div className="absolute left-0 w-1/4 flex p-4 items-center justify-center">
+            <p className="text-lg px-1 rounded-lg italic">evan.emsley.us</p>
+          </div>
+
+          <div
+            className={`w-3/4 h-full justify-evenly items-center flex ${
+              isMobile ? "relative" : "absolute right-0"
+            } `}
+          >
+            <a href="#Home" onClick={() => setClicked(true)}>
+              <div class="group  text-slate-100 transition-all duration-300 ease-in-out">
+                <p class="  bg-left-bottom bg-gradient-to-r from-lime-600 to-lime-400 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out hover:text-lime-400">
+                  Home
+                </p>
+              </div>
+            </a>
+            <a href="#Projects" onClick={() => setClicked(true)}>
+              <div class="group  text-slate-100 transition-all duration-300 ease-in-out">
+                <p class="bg-left-bottom bg-gradient-to-r  from-blue-600  to-blue-400 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out hover:text-blue-400">
+                  Projects
+                </p>
+              </div>
+            </a>
+            <a href="#Resume" onClick={() => setClicked(true)}>
+              <div class="group  text-slate-100 transition-all duration-300 ease-in-out">
+                <p class="bg-left-bottom bg-gradient-to-r  from-violet-600  to-violet-400 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out hover:text-violet-400">
+                  Resume
+                </p>
+              </div>
+            </a>
+            <a href="#About" onClick={() => setClicked(true)}>
+              <div class="group  text-slate-100 transition-all duration-300 ease-in-out">
+                <p class="bg-left-bottom bg-gradient-to-r  from-teal-600  to-teal-400 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out hover:text-teal-400">
+                  About
+                </p>
+              </div>
+            </a>
+          </div>
         </div>
-      </>
+      </div>
+    );
+  };
+  const socialTabs = () => {
+    return (
+      <div className="h-screen w-24 transition-all duration-1000 left-0 top-0 flex items-center fixed">
+        <div
+          className={`h-24 bg-slate-600 border-slate-100 border-r shadow-xl shadow-slate-600 absolute flex items-center justify-center rounded-r-xl z-0 ${
+            socialsVisible ? "w-0" : "w-1/4"
+          } transition-all duration-500 ease-in-out z-10  `}
+          onMouseOver={() => setSocialsVisible(true)}
+        >
+          <ArrowForwardIosIcon style={{ width: "75%", color: "white" }} />
+        </div>
+        <div
+          className={`bg-slate-600 justify-evenly flex flex-col items-center ${
+            socialsVisible ? "w-3/4" : "w-0"
+          } rounded-r-xl h-1/2 min-h-48 transition-all duration-500 ease-in-out z-10 shadow-2xl shadow-slate-600 border-r border-t border-b border-slate-100`}
+          onMouseOver={() => setSocialsVisible(true)}
+          onMouseOut={() => setSocialsVisible(false)}
+        >
+          <a
+            href="https://github.com/eemsley"
+            target="_blank"
+            rel="noreferrer"
+            className={`w-full flex flex-col justify-center items-center  ${
+              socialsVisible
+                ? "text-slate-50 hover:text-lime-400"
+                : "text-transparent"
+            }`}
+          >
+            <GitHubIcon style={{ width: "90%" }} />
+            <p className={`text-xs mb-2 transition-all duration-500`}>Github</p>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/evan-emsley/"
+            target="_blank"
+            rel="noreferrer"
+            className={`w-full flex flex-col justify-center items-center  ${
+              socialsVisible
+                ? "text-slate-50 hover:text-blue-400"
+                : "text-transparent"
+            }`}
+          >
+            <LinkedInIcon style={{ width: "90%" }} />
+            <p className={`text-xs mb-2 transition-all duration-500`}>
+              LinkedIn
+            </p>
+          </a>
+          <a
+            href="https://www.instagram.com/evane273/"
+            target="_blank"
+            rel="noreferrer"
+            className={`w-full flex flex-col justify-center items-center  ${
+              socialsVisible
+                ? "text-slate-50 hover:text-violet-400"
+                : "text-transparent"
+            }`}
+          >
+            <InstagramIcon style={{ width: "90%" }} />
+            <p className={`text-xs mb-2 transition-all duration-500`}>
+              Instagram
+            </p>
+          </a>
+          <a
+            href="mailto:evan@emsley.us"
+            className={`w-full flex flex-col justify-center items-center  ${
+              socialsVisible
+                ? "text-slate-50 hover:text-teal-400"
+                : "text-transparent"
+            }`}
+          >
+            <EmailRoundedIcon style={{ width: "90%" }} />
+            <p className={`text-xs mb-2 transition-all duration-500`}>Email</p>
+          </a>
+        </div>
+      </div>
+    );
+  };
+  const mobileSocialTabs = () => {
+    return (
+      <div className="w-full bg-slate-600 flex-row flex justify-evenly items-center py-3">
+        <a
+          href="https://github.com/eemsley"
+          target="_blank"
+          rel="noreferrer"
+          className={`w-full flex flex-col justify-center items-center text-slate-50 hover:text-lime-400`}
+        >
+          <GitHubIcon style={{ width: "90%" }} />
+          <p className={`text-xs transition-all duration-500`}>Github</p>
+        </a>
+        <a
+          href="https://www.linkedin.com/in/evan-emsley/"
+          target="_blank"
+          rel="noreferrer"
+          className={`w-full flex flex-col justify-center items-center text-slate-50 hover:text-lime-400`}
+        >
+          <LinkedInIcon style={{ width: "90%" }} />
+          <p className={`text-xs transition-all duration-500`}>LinkedIn</p>
+        </a>
+        <a
+          href="https://www.instagram.com/evane273/"
+          target="_blank"
+          rel="noreferrer"
+          className={`w-full flex flex-col justify-center items-center text-slate-50 hover:text-lime-400`}
+        >
+          <InstagramIcon style={{ width: "90%" }} />
+          <p className={`text-xs transition-all duration-500`}>Instagram</p>
+        </a>
+        <a
+          href="mailto:evan@emsley.us"
+          className={`w-full flex flex-col justify-center items-center text-slate-50 hover:text-lime-400`}
+        >
+          <EmailRoundedIcon style={{ width: "90%" }} />
+          <p className={`text-xs transition-all duration-500`}>Email</p>
+        </a>
+      </div>
     );
   };
   const intro = () => {
@@ -284,132 +322,237 @@ function Home() {
       </div>
     );
   };
-  const header = () => {
+  const mobileIntro = () => {
     return (
       <div
-        className={`sticky ${
-          scrollDirection === "down" || clicked === true ? "-top-16" : "top-0"
-        }  ${
-          position === 0 ? "bg-slate-600" : "bg-slate-600/20 hover:bg-slate-600"
-        }
-      h-16 transition-all duration-250 ease-in-out scroll-smooth`}
+        id="Home"
+        className=" mt-8 w-5/6 max-w-6xl bg-slate-100 rounded-xl p-4 flex items-center justify-center flex-col flex-wrap"
       >
-        <div className="h-full w-full flex flex-row justify-center  text-slate-100 items-center">
-          {!isMobile && (
-            <div className="absolute left-0 w-1/4 flex p-4 items-center justify-center">
-              <p className="text-lg px-1 rounded-lg italic">evan.emsley.us</p>
-            </div>
-          )}
-          <div
-            className={`w-3/4 h-full justify-evenly items-center flex ${
-              isMobile ? "relative" : "absolute right-0"
-            } `}
-          >
-            <a href="#Home" onClick={() => setClicked(true)}>
-              <div class="group  text-slate-100 transition-all duration-300 ease-in-out">
-                <p class="  bg-left-bottom bg-gradient-to-r from-lime-600 to-lime-400 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out hover:text-lime-400">
-                  Home
-                </p>
-              </div>
-            </a>
-            <a href="#Projects" onClick={() => setClicked(true)}>
-              <div class="group  text-slate-100 transition-all duration-300 ease-in-out">
-                <p class="bg-left-bottom bg-gradient-to-r  from-blue-600  to-blue-400 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out hover:text-blue-400">
-                  Projects
-                </p>
-              </div>
-            </a>
-            <a href="#Resume" onClick={() => setClicked(true)}>
-              <div class="group  text-slate-100 transition-all duration-300 ease-in-out">
-                <p class="bg-left-bottom bg-gradient-to-r  from-violet-600  to-violet-400 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out hover:text-violet-400">
-                  Resume
-                </p>
-              </div>
-            </a>
-            <a href="#About" onClick={() => setClicked(true)}>
-              <div class="group  text-slate-100 transition-all duration-300 ease-in-out">
-                <p class="bg-left-bottom bg-gradient-to-r  from-teal-600  to-teal-400 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out hover:text-teal-400">
-                  About
-                </p>
-              </div>
-            </a>
+        <p className="text-xl transition-all duration-1000 font-bold text-slate-600 pb-2">
+          Welcome!
+        </p>
+        <p className="text-sm/tight text-center text-slate-600">
+          I'm a Purdue Computer Science student, graduating in December 2024.
+        </p>
+        <p className="text-sm/tight text-slate-600 pb-4 text-center">
+          Below is an overview of my skills, projects, and passions...
+        </p>
+        <div className="w-full flex flex-row items-center justify-center flex-wrap">
+          <div className="pb-4">
+            <p className="text-xs/tight text-slate-600">
+              I've been coding since middle school and am very passionate about
+              software development. I've worked on projects from mobile
+              applications to low-level operating system development, and am
+              currently working through a machine learning project, the classic
+              example of identifying hand-written numbers. This summer, I'm
+              interning on the DevOps Team at Allegion in Carmel, Indiana. After
+              graduation this December, I'm looking for a full-time software
+              development position at an innovative company where I can explore
+              new technologies and grow as a developer.
+            </p>
           </div>
+          <div className="w-full flex flex-row items-center justify-center flex-wrap">
+            <p className="text-xs text-slate-600 w-1/2">
+              I made this website with React and Tailwind CSS, deployed with
+              Vercel. It's posted on my GitHub{" "}
+              <a
+                href="https://github.com/eemsley/evan.emsley.us"
+                className="text-sky-600 underline hover:text-sky-300 transition-all duration-500 ease-in-out"
+              >
+                here
+              </a>
+              . <br />
+              <br />
+              I'm always looking for new projects to work on, so feel free to
+              email me at{" "}
+              <a
+                className="text-sky-600 underline hover:text-sky-300 transition-all duration-500 ease-in-out"
+                href="mailto:evan@emsley.us"
+              >
+                evan@emsley.us
+              </a>
+            </p>
+            <div className="w-1/2 pl-4">
+              <img
+                src={require("../assets/Headshot.jpeg")}
+                alt="headshot"
+                className="w-full rounded-full bg-slate-100"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="w-full flex flex-row flex-wrap justify-center space-x-2 items-center mt-4">
+          {skills.map((skill) => (
+            <p className="text-xs text-slate-100 p-2 bg-slate-600 rounded-full min-w-12 text-center hover:scale-110 transition-all duration-500 mt-2">
+              {skill}
+            </p>
+          ))}
         </div>
       </div>
     );
   };
-  const socialTabs = () => {
+  const projectsContent = () => {
     return (
-      <div className="h-screen w-24 transition-all duration-1000 left-0 top-0 flex items-center fixed">
-        <div
-          className={`h-24 bg-slate-600 absolute flex items-center justify-center rounded-r-xl z-0 ${
-            socialsVisible ? "w-0" : "w-1/4"
-          } transition-all duration-500 ease-in-out z-10  `}
-          onMouseOver={() => setSocialsVisible(true)}
+      <>
+        <p
+          id="Projects"
+          className="text-4xl font-bold text-slate-600 py-8 w-full text-center mt-48"
         >
-          <ArrowForwardIosIcon style={{ width: "75%", color: "white" }} />
+          Projects
+        </p>
+        <div className={`w-full h-[70vh] bg-slate-200`}>{carousel()}</div>
+      </>
+    );
+  };
+  const mobileProjects = () => {
+    return (
+      <>
+        <p
+          id="Projects"
+          className="text-xl font-bold text-slate-600 pb-2 w-full text-center mt-16"
+        >
+          Projects
+        </p>
+        <div className={`w-full h-[55vh] bg-slate-200`}>{carousel()}</div>
+      </>
+    );
+  };
+  const resume = () => {
+    return (
+      <div
+        id="Resume"
+        className=" mt-48 w-5/6 max-w-6xl bg-slate-100 rounded-xl p-8 flex items-center justify-center flex-col flex-wrap"
+      >
+        <p className="text-4xl font-bold text-slate-600 pb-8">Resume</p>
+        <div className="w-full max-w-4xl h-screen flex flex-row flex-wrap">
+          <embed
+            src={require("../assets/resume.pdf")}
+            type="application/pdf"
+            width="100%"
+            height="85%"
+            title="resume"
+          />
         </div>
-        <div
-          className={`bg-slate-600 justify-evenly flex flex-col items-center ${
-            socialsVisible ? "w-3/4" : "w-0"
-          } rounded-r-xl h-1/2 min-h-48 transition-all duration-500 ease-in-out z-10 shadow-2xl shadow-slate-600`}
-          onMouseOver={() => setSocialsVisible(true)}
-          onMouseOut={() => setSocialsVisible(false)}
-        >
+      </div>
+    );
+  };
+  const mobileResume = () => {
+    return (
+      <div className="bg-slate-100 h-3/4 w-5/6 max-w-6xl p-4 flex flex-col items-center justify-center rounded-xl mt-12">
+        <p className="text-xl transition-all duration-1000 font-bold text-slate-600 pb-4">
+          Resume
+        </p>
+        <div className=" w-full flex flex-row flex-wrap items-center justify-center">
+          <embed
+            src={require("../assets/resume.pdf")}
+            type="application/pdf"
+            width="100%"
+            height="85%"
+            style={{ border: "1px solid gray" }}
+            title="resume"
+          />
+        </div>
+        <p className="text-slate-600 text-xs text-center">
+          *This PDF embed may not render on certain browsers, here's a{" "}
           <a
-            href="https://github.com/eemsley"
+            href="http://www.github.com"
             target="_blank"
+            className="text-sky-500 underline"
             rel="noreferrer"
-            className={`w-full flex flex-col justify-center items-center  ${
-              socialsVisible
-                ? "text-slate-50 hover:text-lime-400"
-                : "text-transparent"
-            }`}
           >
-            <GitHubIcon style={{ width: "90%" }} />
-            <p className={`text-xs mb-2 transition-all duration-500`}>Github</p>
+            link.
           </a>
-          <a
-            href="https://www.linkedin.com/in/evan-emsley/"
-            target="_blank"
-            rel="noreferrer"
-            className={`w-full flex flex-col justify-center items-center  ${
-              socialsVisible
-                ? "text-slate-50 hover:text-blue-400"
-                : "text-transparent"
-            }`}
-          >
-            <LinkedInIcon style={{ width: "90%" }} />
-            <p className={`text-xs mb-2 transition-all duration-500`}>
-              LinkedIn
-            </p>
-          </a>
-          <a
-            href="https://www.instagram.com/evane273/"
-            target="_blank"
-            rel="noreferrer"
-            className={`w-full flex flex-col justify-center items-center  ${
-              socialsVisible
-                ? "text-slate-50 hover:text-violet-400"
-                : "text-transparent"
-            }`}
-          >
-            <InstagramIcon style={{ width: "90%" }} />
-            <p className={`text-xs mb-2 transition-all duration-500`}>
-              Instagram
-            </p>
-          </a>
-          <a
-            href="mailto:evan@emsley.us"
-            className={`w-full flex flex-col justify-center items-center  ${
-              socialsVisible
-                ? "text-slate-50 hover:text-teal-400"
-                : "text-transparent"
-            }`}
-          >
-            <EmailRoundedIcon style={{ width: "90%" }} />
-            <p className={`text-xs mb-2 transition-all duration-500`}>Email</p>
-          </a>
+        </p>
+      </div>
+    );
+  };
+  const about = () => {
+    return (
+      <div
+        id="About"
+        className=" mt-48 w-5/6 max-w-6xl bg-slate-100 rounded-xl p-8 flex items-center justify-center flex-col flex-wrap"
+      >
+        <p className="text-4xl font-bold text-slate-600 pb-8">More About Me</p>
+        <div className="w-full flex flex-row flex-wrap justify-evenly items-center">
+          <img
+            src={require("../assets/about1.jpg")}
+            alt="about1"
+            className="w-1/2 min-w-64 p-2 shadow-xl shadow-slate-600"
+          />
+
+          <img
+            src={require("../assets/about3.JPG")}
+            alt="about3"
+            className="w-1/2 min-w-64 p-2 shadow-xl shadow-slate-600"
+          />
+        </div>
+        <p className="text-center text-slate-800 text-sm p-4 mt-4">
+          Outside of coding, I love to travel and play music. I've been on
+          countless road trips around the US with my family and friends, camping
+          and living out of a minivan. I've played guitar since middle school
+          and have been a part of many bands. Most notably, my best friends in
+          high school and I formed the band Arboretum, and we've recorded lots
+          of original music available on our Spotify. I play guitar for Campus
+          House Ministries at Purdue, and I'm a member of the Phi Delta Theta
+          fraternity at Purdue. To stay active I enjoy lifting weights, running,
+          and biking.
+        </p>
+        <div className="w-full flex flex-row flex-wrap justify-evenly items-center">
+          <img
+            src={require("../assets/about5.JPG")}
+            alt="about5"
+            className="w-1/2 min-w-64 p-2 shadow-xl shadow-slate-600"
+          />
+          <img
+            src={require("../assets/about4.JPG")}
+            alt="about4"
+            className="w-1/2 min-w-64 p-2 shadow-xl shadow-slate-600"
+          />
+        </div>
+      </div>
+    );
+  };
+  const mobileAbout = () => {
+    return (
+      <div
+        id="About"
+        className=" mt-12 mb-12 w-5/6  bg-slate-100 rounded-xl px-2 pt-4 pb-2 flex items-center justify-center flex-col flex-wrap"
+      >
+        <p className="text-xl font-bold text-slate-600">More About Me</p>
+
+        <p className="text-slate-800 text-xs/tight px-4 pb-4">
+          Outside of coding, I love to travel and play music. I've been on
+          countless road trips around the US with my family and friends, camping
+          and living out of a minivan. I've played guitar since middle school
+          and have been a part of many bands. Most notably, my best friends in
+          high school and I formed the band Arboretum, and we've recorded lots
+          of original music available on our Spotify. I play guitar for Campus
+          House Ministries at Purdue, and I'm a member of the Phi Delta Theta
+          fraternity at Purdue. To stay active I enjoy lifting weights, running,
+          and biking.
+        </p>
+        <div className="w-full flex flex-row flex-wrap justify-evenly items-center">
+          <img
+            src={require("../assets/about5.JPG")}
+            alt="about5"
+            className="w-1/2 rounded-tl-xl"
+          />
+          <img
+            src={require("../assets/about4.JPG")}
+            alt="about4"
+            className="w-1/2 rounded-tr-xl"
+          />
+          <img
+            src={require("../assets/about1.jpg")}
+            alt="about1"
+            className="w-1/2 rounded-bl-xl"
+          />
+
+          <img
+            src={require("../assets/about3.JPG")}
+            alt="about3"
+            className="w-1/2 rounded-br-xl"
+          />
         </div>
       </div>
     );
@@ -417,17 +560,18 @@ function Home() {
 
   return (
     <div className="h-full w-full">
-      {socialTabs()}
-      {header()}
+      {!isMobile && socialTabs()}
+      {!isMobile && header()}
       <div
         id="wrapper"
         className="h-full w-full items-center flex flex-col"
         onClick={() => setSocialsVisible(false)}
       >
-        {intro()}
-        {projectsContent()}
-        {resume()}
-        {about()}
+        {isMobile && mobileSocialTabs()}
+        {isMobile ? mobileIntro() : intro()}
+        {isMobile ? mobileProjects() : projectsContent()}
+        {isMobile ? mobileResume() : resume()}
+        {isMobile ? mobileAbout() : about()}
       </div>
     </div>
   );
