@@ -288,14 +288,13 @@ function Home() {
           <div className="w-5/6 max-w-2xl">
             <p className="text-sm/normal text-primary-800">
               I've been coding since middle school and am very passionate about
-              software development. I've worked on projects from mobile
-              applications to low-level operating system development, and am
-              currently working through a machine learning project, the classic
-              example of identifying hand-written numbers. This summer, I'm
-              interning on the DevOps Team at Allegion in Carmel, Indiana. After
-              graduation this December, I'm looking for a full-time software
-              development position at an innovative company where I can explore
-              new technologies and grow as a developer. <br />
+              software development. I've worked on projects from full stack
+              mobile applications to low-level operating system development.
+              I've been interning on the DevOps Team at Allegion in Carmel,
+              Indiana since May of 2024. After graduation this December, I'm
+              looking for a full-time software development position at an
+              innovative company where I can explore new technologies and grow
+              as a developer. <br />
               <br />I made this website with React and Tailwind CSS, deployed
               with Vercel. It's posted on my GitHub{" "}
               <a
